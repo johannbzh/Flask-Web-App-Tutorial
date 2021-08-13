@@ -1,9 +1,14 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+DB_NAME = 'database.db'
 
 def create_app():
   app = Flask(__name__) # Initialize flask
   app.config['SECRET_KEY'] = 'hfiejghug764' # Encrypt cookies
-
+  app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+  db.init_app(app)
   from .views import views
   from .auth import auth
 
